@@ -9,14 +9,14 @@ class Weather_Frame(wx.Frame):
     def __init__(self):
         self.openai_key, self.weather_key = tools.fetchKeys()
         
-        super().__init__(parent=None, title='Hello World')
+        super().__init__(parent=None, title='Weatherly')
         panel = wx.Panel(self)
         sizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.text_ctrl = wx.TextCtrl(panel, pos=(5, 5))
-        sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5) 
+        self.text_ctrl = wx.TextCtrl(panel, size=(250, -1), style=wx.TE_CENTRE, pos=(5, 5))
+        sizer.Add(self.text_ctrl, 0, wx.ALL | wx.CENTER, 5)
         
-        button = wx.Button(panel, label='Select', pos=(5, 55))
+        button = wx.Button(panel, label='Select', pos=(5, 5))
         button.Bind(wx.EVT_BUTTON, self.on_press)
         sizer.Add(button, 0, wx.ALL | wx.CENTER, 5)  
         
