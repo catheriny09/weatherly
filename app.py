@@ -13,19 +13,25 @@ class Weather_Frame(wx.Frame):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         self.text_ctrl = wx.TextCtrl(panel, size=(250, -1), style=wx.TE_CENTRE, pos=(5, 5))
+        self.text_ctrl.SetBackgroundColour("#62c3d1")
         sizer.Add(self.text_ctrl, 0, wx.ALL | wx.CENTER, 5)
         
         button = wx.Button(panel, label='Select', pos=(5, 5))
         button.Bind(wx.EVT_BUTTON, self.on_press)
         sizer.Add(button, 0, wx.ALL | wx.CENTER, 5) 
         
+        self.image = wx.StaticBitmap(panel,size=(100,100),pos=(5,15))
+        sizer.Add(self.image, 0, wx.ALL | wx.CENTER, 5)
+        
         self.w_text_ctrl = wx.TextCtrl(panel, size=(300, 300), style=wx.TE_READONLY, pos=(5,5)) 
+        self.w_text_ctrl.SetBackgroundColour("#62c3d1")
         sizer.Add(self.w_text_ctrl, 0, wx.ALL | wx.CENTER, 5)
         
         panel.SetSizer(sizer)
         
         self.CreateStatusBar()
 
+        self.SetBackgroundColour("#8ae0ed")
         self.Show()
         
     def on_press(self, event):
@@ -55,8 +61,13 @@ class Weather_Frame(wx.Frame):
                 
             res = response.choices[0].text
             
-            png = wx.Image('sun.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-            wx.StaticBitmap(self, -1, png, (10, 5), (40, 40))
+            if 'broken' in desc:
+                png = wx.Image('images/Partially_Cloudy.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+                
+            else:
+                png = wx.Image('images/Sun.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+                
+            self.image.SetBitmap(png)
 
             output = (f'Temperature: {temp} C\nDescription: {desc}\n\n {res}')
             self.w_text_ctrl.SetLabelText(output)
