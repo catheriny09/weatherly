@@ -3,8 +3,6 @@ import openai
 import tools
 import wx
 
-# Put this on a timer with a ui that refreshes every minute?
-
 class Weather_Frame(wx.Frame):    
     def __init__(self):
         self.openai_key, self.weather_key = tools.fetchKeys()
@@ -56,6 +54,10 @@ class Weather_Frame(wx.Frame):
                 )
                 
             res = response.choices[0].text
+            
+            png = wx.Image('sun.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+            wx.StaticBitmap(self, -1, png, (10, 5), (40, 40))
+
             output = (f'Temperature: {temp} C\nDescription: {desc}\n\n {res}')
             self.w_text_ctrl.SetLabelText(output)
                 
