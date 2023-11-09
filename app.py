@@ -64,8 +64,20 @@ class Weather_Frame(wx.Frame):
             if 'broken' in desc:
                 png = wx.Image('images/Partially_Cloudy.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
                 
+            elif 'rain' in desc or 'drizzle' in desc:
+                png = wx.Image('images/Rain.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+                
+            elif 'overcast' in desc:
+                png = wx.Image('images/Cloudy.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+                self.SetBackgroundColour('#d1e4e6')
+                self.text_ctrl.SetBackgroundColour('#b3c7c9')
+                self.w_text_ctrl.SetBackgroundColour('#b3c7c9')
+                
             else:
                 png = wx.Image('images/Sun.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+                self.text_ctrl.SetBackgroundColour("#62c3d1")
+                self.w_text_ctrl.SetBackgroundColour("#62c3d1")
+                self.SetBackgroundColour("#8ae0ed")
                 
             self.image.SetBitmap(png)
 
